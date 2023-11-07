@@ -73,6 +73,18 @@ public class UserService {
         }
         else {
             user.get().setUserAddress(newAddress);
+            saveUser(user.get());
+            return "success";
+        }
+    }
+
+    public String delete(String currentUserEmail) {
+        Optional<User> user = userRepository.findByUserEmail(currentUserEmail);
+        if(!user.isPresent()) {
+            return "error";
+        }
+        else {
+            userRepository.delete(user.get());
             return "success";
         }
     }

@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @RestController
@@ -58,6 +59,22 @@ public class MyPageController {
         else {
             return ResponseEntity.ok("주소를 바꿨습니다.");
         }
+    }
+
+    @PostMapping("/myPage/delete")
+    public ResponseEntity<String> delete() {
+        // 현재 인증된 유저의 이메일 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserEmail = authentication.getName();
+        String deleteResult = userService.delete(currentUserEmail);
+
+        if (deleteResult == "error") {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("유저를 찾을 수 없습니다.");
+        }
+        else {
+            return ResponseEntity.ok("회원탈퇴 완료");
+        }
+
     }
 
 }

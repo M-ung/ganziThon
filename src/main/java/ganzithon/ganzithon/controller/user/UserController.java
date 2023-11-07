@@ -45,7 +45,7 @@ public class UserController {
         return ResponseEntity.ok(signupResult);
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/out")
     public ResponseEntity<String> logout(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
