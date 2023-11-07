@@ -6,10 +6,12 @@ import ganzithon.ganzithon.entity.user.User;
 import ganzithon.ganzithon.repository.user.UserRepository;
 import ganzithon.ganzithon.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -57,15 +59,6 @@ public class UserService {
         }
     }
 
-
-    public User findUserById(Long userId) {
-        return userRepository.findById(userId).orElse(null);
-    }
-
-    public User saveUser(User user) {
-        return userRepository.save(user);
-    }
-
     public String update(String currentUserEmail, String newAddress) {
         Optional<User> user = userRepository.findByUserEmail(currentUserEmail);
         if(!user.isPresent()) {
@@ -73,7 +66,7 @@ public class UserService {
         }
         else {
             user.get().setUserAddress(newAddress);
-            saveUser(user.get());
+            userRepository.save(user.get());
             return "success";
         }
     }
@@ -87,5 +80,20 @@ public class UserService {
             userRepository.delete(user.get());
             return "success";
         }
+    }
+
+    public User getMyPage(Long userId, String currentUserEmail) {
+        // 유저 정보 찾기
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (!userOptional.isPresent()) {
+            return null;
+        }
+
+        User user = userOptional.get();
+        if (!Objects.equals(user.getUserEmail(), currentUserEmail)) {
+            // 현재 사용자의 이메일과 요청된 유저의 이메일이 일치하지 않을 경우
+            return null;
+        }
+        return user;
     }
 }

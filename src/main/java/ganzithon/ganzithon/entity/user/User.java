@@ -1,8 +1,13 @@
 package ganzithon.ganzithon.entity.user;
+import ganzithon.ganzithon.entity.order.Order;
 import lombok.*;
 import org.springframework.context.annotation.Profile;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -30,5 +35,8 @@ public class User {
     private String userAddress; // 유저 주소
 
     @Column(nullable = false)
-    private Integer userMileage; // 유저 마일리지, 기본값 0
+    private Integer userMileage; // 유저 마일리지
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orderList = new ArrayList<>();
 }
