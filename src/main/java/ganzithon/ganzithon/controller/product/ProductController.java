@@ -1,6 +1,8 @@
 package ganzithon.ganzithon.controller.product;
 
 
+import ganzithon.ganzithon.dto.product.ProductDetailDto;
+import ganzithon.ganzithon.dto.product.ProductDto;
 import ganzithon.ganzithon.entity.product.Product;
 import ganzithon.ganzithon.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -19,25 +21,23 @@ public class ProductController {
 
     private final ProductService productService;
     @GetMapping("/shop")
-    public ResponseEntity<List<Product>> getProductsByArea(@RequestParam("area") String area) {
-        List<Product> products = productService.getProductsByArea(area);
-        if (products.isEmpty()) {
+    public ResponseEntity<List<ProductDto>> getProductsByArea(@RequestParam("area") String area) {
+        List<ProductDto> productDto = productService.getProductsByArea(area);
+        if (productDto.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(products);
+        return ResponseEntity.ok(productDto);
     }
 
     // 상품 ID를 받아서 상품 정보를 반환하는 메소드
     @GetMapping("/product/{productId}")
-    public ResponseEntity<Product> getProduct(@PathVariable Long productId) {
-        Product getProductResult = productService.productDetail(productId);
+    public ResponseEntity<ProductDetailDto> getProduct(@PathVariable Long productId) {
+        ProductDetailDto productDetailDto = productService.productDetail(productId);
 
-        if (getProductResult != null)
-        {
-            return ResponseEntity.ok(getProductResult);
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        if (productDetailDto != null) {
+            return ResponseEntity.ok(productDetailDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 }

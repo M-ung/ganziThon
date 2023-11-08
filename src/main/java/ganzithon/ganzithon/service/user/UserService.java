@@ -1,17 +1,14 @@
 package ganzithon.ganzithon.service.user;
 
-import ganzithon.ganzithon.dto.user.UpdateDto;
+import ganzithon.ganzithon.dto.token.TokenDto;
 import ganzithon.ganzithon.dto.user.UserDto;
 import ganzithon.ganzithon.entity.user.User;
 import ganzithon.ganzithon.repository.user.UserRepository;
 import ganzithon.ganzithon.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -42,21 +39,19 @@ public class UserService {
         return "success";
     }
 
-    public String login(UserDto userDto) {
+    public TokenDto login(UserDto userDto) {
         Optional<User> byUserEmail = userRepository.findByUserEmail(userDto.getUserEmail());
         if(byUserEmail.isPresent()) {
-            if(passwordEncoder.matches(userDto.getUserPassword(), byUserEmail.get().getUserPassword())) {
+            if (passwordEncoder.matches(userDto.getUserPassword(), byUserEmail.get().getUserPassword())) {
                 System.out.println("[LOIGN]");
                 System.out.println(userDto.getUserEmail());
                 System.out.println(secretKey);
                 System.out.println(expiredMs);
-                return JwtUtil.createJwt(userDto.getUserEmail(), secretKey, expiredMs);
+                String jwt = JwtUtil.createJwt(userDto.getUserEmail(), secretKey, expiredMs);
+                return new TokenDto(jwt); // TokenDto 객체 생성하여 반환
             }
-            return "error 2";
         }
-        else{
-            return "error 1";
-        }
+        return null;
     }
 
     public String update(String currentUserEmail, String newAddress) {
@@ -80,20 +75,5 @@ public class UserService {
             userRepository.delete(user.get());
             return "success";
         }
-    }
-
-    public User getMyPage(Long userId, String currentUserEmail) {
-        // 유저 정보 찾기
-        Optional<User> userOptional = userRepository.findById(userId);
-        if (!userOptional.isPresent()) {
-            return null;
-        }
-
-        User user = userOptional.get();
-        if (!Objects.equals(user.getUserEmail(), currentUserEmail)) {
-            // 현재 사용자의 이메일과 요청된 유저의 이메일이 일치하지 않을 경우
-            return null;
-        }
-        return user;
     }
 }

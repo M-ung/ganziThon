@@ -1,7 +1,10 @@
 package ganzithon.ganzithon.entity.order;
 
+import ganzithon.ganzithon.entity.product.Product;
 import ganzithon.ganzithon.entity.user.User;
 import lombok.*;
+import org.aspectj.weaver.ast.Or;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,17 +17,18 @@ import javax.persistence.*;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId; // 유저 고유 식별자
+    private Long orderId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id") // 데이터베이스의 외래키 컬럼 이름
-    private User user; // User 엔티티에 대한 참조
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column
-    private Long productId;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    public Order(User user, Long productId) {
+    public Order(User user, Product product) {
         this.user = user;
-        this.productId = productId;
+        this.product = product;
     }
 }

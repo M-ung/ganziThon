@@ -38,5 +38,5 @@ public class User {
     private Integer userMileage; // 유저 마일리지
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orderList = new ArrayList<>();
+    private List<Order> orders;
 }

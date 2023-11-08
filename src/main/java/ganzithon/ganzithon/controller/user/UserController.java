@@ -1,5 +1,6 @@
 package ganzithon.ganzithon.controller.user;
 
+import ganzithon.ganzithon.dto.token.TokenDto;
 import ganzithon.ganzithon.dto.user.UserDto;
 import ganzithon.ganzithon.service.token.TokenBlacklistService;
 import ganzithon.ganzithon.service.user.UserService;
@@ -22,15 +23,10 @@ public class UserController {
     private final TokenBlacklistService tokenBlacklistService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserDto userDto) {
-        String loginResult = userService.login(userDto);
-        if(loginResult == "error 1") {
-            // 이메일이 존재하지 않는다면
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("이메일이 존재하지 않습니다.");
-        }
-        else if (loginResult == "error 2") {
-            // 이메일이 존재하지 않는다면
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("비밀번호가 틀렸습니다.");
+    public ResponseEntity<TokenDto> login(@RequestBody UserDto userDto) {
+        TokenDto loginResult = userService.login(userDto);
+        if(loginResult == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         return ResponseEntity.ok().body(loginResult);
     }

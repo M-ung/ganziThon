@@ -1,5 +1,6 @@
 package ganzithon.ganzithon.service.order;
 
+import ganzithon.ganzithon.dto.order.OrderDto;
 import ganzithon.ganzithon.entity.order.Order;
 import ganzithon.ganzithon.entity.product.Product;
 import ganzithon.ganzithon.entity.user.User;
@@ -8,7 +9,6 @@ import ganzithon.ganzithon.repository.product.ProductRepository;
 import ganzithon.ganzithon.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.hibernate.Hibernate;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -31,22 +31,27 @@ public class OrderService {
         if (!productOptional.isPresent()) {
             return "error: product not found";
         }
+        Integer userMileage = userOptional.get().getUserMileage();
+        Integer productPrice = productOptional.get().getProductPrice();
+
+        if (userMileage < productPrice) {
+            return "error: no Mileage";
+        }
 
         User user = userOptional.get();
+        Product product = productOptional.get();
 
         // 새로운 주문 객체를 만들어서
-        Order newOrder = new Order(user, productId);
+        Order newOrder = new Order(user , product);
 
         // 주문을 저장합니다.
         orderRepository.save(newOrder);
 
-        user.getOrderList().add(newOrder);
+        Integer currentMileage = userMileage - productPrice;
+
+        user.setUserMileage(currentMileage);
 
         userRepository.save(user);
-
-        for(int i=0; i<user.getOrderList().size(); i++) {
-            System.out.println(user.getOrderList().get(i));
-        }
 
         return "success";
     }

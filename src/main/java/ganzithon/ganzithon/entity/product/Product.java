@@ -1,8 +1,10 @@
 package ganzithon.ganzithon.entity.product;
 
+import ganzithon.ganzithon.entity.order.Order;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -30,4 +32,7 @@ public class Product {
 
     @Column(nullable = false)
     private String productDetail; // 상품 설명
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Order> orders;
 }
