@@ -60,7 +60,6 @@ public class MyPageController {
         else {
             return ResponseEntity.ok("회원탈퇴 완료");
         }
-
     }
 
 }
