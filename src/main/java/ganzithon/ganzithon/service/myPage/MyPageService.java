@@ -7,6 +7,7 @@ import ganzithon.ganzithon.entity.order.Order;
 import ganzithon.ganzithon.entity.user.User;
 import ganzithon.ganzithon.repository.order.OrderRepository;
 import ganzithon.ganzithon.repository.user.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,16 +18,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class MyPageService {
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
+    private final ModelMapper modelMapper;
 
     public MyPageDto getMyPageInfo(Long userId, String currentUserEmail) {
         Optional<User> user = userRepository.findById(userId);
@@ -41,7 +37,7 @@ public class MyPageService {
             return myPageDto;
         }
 
-        return null; // or you can throw a custom exception if user is not found
+        return null;
     }
 
     private UserMyPageDto convertToUserDTO(User user) {
