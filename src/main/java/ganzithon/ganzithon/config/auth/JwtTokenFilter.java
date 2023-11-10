@@ -1,7 +1,7 @@
-package ganzithon.ganzithon.config;
+package ganzithon.ganzithon.config.auth;
 
 
-import ganzithon.ganzithon.service.token.TokenBlacklistService;
+import ganzithon.ganzithon.service.token.TokenService;
 import ganzithon.ganzithon.service.user.UserService;
 import ganzithon.ganzithon.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final UserService userService;
     private final String secretKey;
-    private final TokenBlacklistService tokenBlacklistService;
+    private final TokenService tokenService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws SecurityException, ServletException, IOException {
@@ -45,7 +45,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String token = authorization.split(" ")[1];
 
         // 블랙리스트에 토큰이 있는지 확인
-        if (tokenBlacklistService.isTokenBlacklisted(token)) {
+        if (tokenService.isTokenBlacklisted(token)) {
             log.error("Blacklisted token");
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Blacklisted token");
             return;

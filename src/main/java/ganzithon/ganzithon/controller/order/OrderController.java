@@ -1,24 +1,21 @@
 package ganzithon.ganzithon.controller.order;
-
-import ganzithon.ganzithon.dto.order.OrderDto;
+import ganzithon.ganzithon.service.auth.AuthenticationService;
 import ganzithon.ganzithon.service.order.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/order")
 public class OrderController {
     private final OrderService orderService;
+    private final AuthenticationService authenticationService;
 
-    @PostMapping("/product/{productId}")
+    @PostMapping("/{productId}")
     public ResponseEntity<String> order(@PathVariable Long productId) {
-        // 현재 인증된 유저의 이메일 가져오기
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserEmail = authentication.getName();
+        String currentUserEmail = authenticationService.getCurrentAuthenticatedUserEmail();
         String orderResult = orderService.order(productId, currentUserEmail);
 
         if (orderResult == "success")

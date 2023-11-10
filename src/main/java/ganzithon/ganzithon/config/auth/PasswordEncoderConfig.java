@@ -1,4 +1,4 @@
-package ganzithon.ganzithon.config;
+package ganzithon.ganzithon.config.auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

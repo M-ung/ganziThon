@@ -9,7 +9,6 @@ import ganzithon.ganzithon.repository.order.OrderRepository;
 import ganzithon.ganzithon.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

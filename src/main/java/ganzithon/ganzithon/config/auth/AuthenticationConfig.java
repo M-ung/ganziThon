@@ -1,7 +1,7 @@
-package ganzithon.ganzithon.config;
+package ganzithon.ganzithon.config.auth;
 
 
-import ganzithon.ganzithon.service.token.TokenBlacklistService;
+import ganzithon.ganzithon.service.token.TokenService;
 import ganzithon.ganzithon.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor // final 또는 @NonNull 필드 값을 파라미터로 받는 생성자를 생성 (lombok 라이브러리의 어노테이션)
 public class AuthenticationConfig {
     private final UserService userService; // 유저 서비스 의존성 주입
-    private final TokenBlacklistService tokenBlacklistService;
+    private final TokenService tokenService;
     @Value(("${jwt.secret}")) // application.properties 또는 yml 파일의 jwt.secret 값을 여기에 주입
     private String secretKey; // JWT 토큰 생성 및 파싱에 사용할 비밀키
 
@@ -37,7 +37,7 @@ public class AuthenticationConfig {
                 .sessionManagement() // 세션 관리
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션을 사용하지 않고 STATELESS로 설정
                 .and()
-                .addFilterBefore(new JwtTokenFilter(userService, secretKey, tokenBlacklistService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtTokenFilter(userService, secretKey, tokenService), UsernamePasswordAuthenticationFilter.class)
                 // JwtTokenFilter를 UsernamePasswordAuthenticationFilter 전에 추가
                 .build(); // SecurityFilterChain 객체 생성 및 반환
     }
