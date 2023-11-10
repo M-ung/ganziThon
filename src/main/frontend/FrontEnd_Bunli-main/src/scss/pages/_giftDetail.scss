@@ -1,0 +1,82 @@
+@use "../abstracts" as *;
+
+.giftDetailTopClass {
+  @include center;
+  display: flex;
+  align-items: flex-start;
+  margin-top: 90px;
+  img {
+    width: 440px;
+  }
+  .contents {
+    min-width: 280px;
+    margin: 8px 0px 0px 20px;
+    padding: 10px 40px;
+    .name {
+      font-size: 26px;
+    }
+    .content {
+      height: 90px;
+      width: 260px;
+      margin: 26px 0px 0px 0px;
+      font-size: 17px;
+    }
+    .price {
+      margin: 22px 0px 0px 0px;
+      font-weight: bold;
+      font-size: 32px;
+    }
+    button {
+      display: block;
+      width: 80px;
+      height: 34px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+  }
+}
+
+@include mobile {
+  .giftDetailTopClass {
+    flex-direction: column;
+    margin: 0px;
+    align-items: center;
+    img {
+      margin-top: 40px;
+      width: 72vw;
+    }
+    .contents {
+      margin: 20px 0px 0px 0px;
+      padding: 20px 50px;
+      .content {
+        width: 70vw;
+      }
+      .price {
+        margin: 14px 0px 0px 0px;
+      }
+      button {
+        margin-top: 18px;
+      }
+    }
+  }
+}
+
+.productRuleFirst {
+  width: 80%;
+
+  margin: 40px 0px 60px 40px;
+
+  :nth-child(2n) {
+    margin: 6px 0px 0px 8px;
+    font-size: 18px;
+  }
+  :nth-child(2n + 1) {
+    margin-top: 6px;
+    margin-left: 18px;
+  }
+  .ruleTop {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0px 0px 6px 0px;
+  }
+}
