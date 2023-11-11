@@ -11,6 +11,14 @@ export const userInfoApi = (token) => {
   });
 };
 
+export const userGameApi = (token) => {
+  return axios.get(`${url}/home`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 // 로그아웃
 export const userLogoutApi = (token) => {
   return axios.post(`${url}/user/out`, {}, {

@@ -2,9 +2,6 @@ import { authenticateUser, createUser } from "../../apis/signupApi/apis";
 import useInput from "../../hooks/useInput";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { SignupBody } from "./style";
-import backgroundImg from "../../assets/loginImg.png";
-import { useEffect } from "react";
 
 function Body() {
   //form 내의 변수들

@@ -2,9 +2,35 @@ import { useNavigate } from "react-router-dom";
 import recyclebinImg from "../../../assets/recylebinImg.png";
 import storeImg from "../../../assets/제어판.png";
 import userImg from "../../../assets/드라이브.png";
+import { userGameApi } from "../../../apis/userApi";
+import {useEffect, useState} from "react";
+
 
 const NewSideBar = () => {
   const navigate = useNavigate();
+
+    const token = localStorage.getItem("token");
+    const [userInfo, setUserInfo] = useState({});
+
+    const getUserGame = async (token) => {
+        try {
+            const response = await userGameApi(token);
+            const userData = response.data;
+            setUserInfo({
+                user_id: userData.userMyPageDto.userId,
+                user_name: userData.userMyPageDto.userName,
+                user_mileage: userData.userMyPageDto.userMileage,
+                user_address: userData.userMyPageDto.userAddress,
+                user_gameDisabledDuration: userData.userMyPageDto.gameDisabledDuration
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    useEffect(() => {
+        getUserGame(token);
+    }, [token]);
 
   // 유저 아이콘 클릭 시
   const handleOnMypage = (e) => {
@@ -13,10 +39,13 @@ const NewSideBar = () => {
   };
 
   // 휴지통 아이콘 클릭 시
-  const handleOnGame = (e) => {
-    // 게임으로 라우팅
-    navigate("/game");
-  };
+    const handleOnGame = () => {
+        if (userInfo.user_gameDisabledDuration > 0) {
+            alert(`게임까지 ${userInfo.user_gameDisabledDuration}분 남았습니다.`);
+        } else {
+            navigate("/game");
+        }
+    };
 
   // 상점 아이콘 클릭 시
   const handleOnStore = (e) => {

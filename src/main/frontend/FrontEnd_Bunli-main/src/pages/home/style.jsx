@@ -3,6 +3,7 @@ import backgroundImg from "../../assets/mainBackground.jpg";
 import recyclebinImg from "../../assets/recylebinImg.png";
 import storeImg from "../../assets/제어판.png";
 import userImg from "../../assets/드라이브.png";
+import folderImg from "../../assets/폴더.png";
 
 export const HomeBody = styled.div`
   font-family: nanumgothic;
@@ -55,6 +56,16 @@ export const HomeBody = styled.div`
         margin-right: 17px;
         margin-top: 15px;
       }
+      #folder {
+        background-image: url(${folderImg});
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
+        width: 70px;
+        height: 70px;
+        margin-right: 17px;
+        margin-top: 15px;
+      }
       #font1 {
         font-size: 12px;
         margin-right: 19px;
@@ -69,6 +80,18 @@ export const HomeBody = styled.div`
         font-size: 12px;
         margin-right: 40px;
         margin-top: 13px;
+        color: white;
+      }
+      #font4 {
+        font-size: 12px;
+        margin-right: 35px;
+        margin-top: 8px;
+        color: white;
+      }
+      #font5 {
+        font-size: 12px;
+        margin-right: 34px;
+        margin-top: 8px;
         color: white;
       }
     }

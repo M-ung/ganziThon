@@ -12,11 +12,19 @@ function NewModal() {
       userEmail: '',
       userMileage: '',
       userAddress: '',
+      gameDisabledDuration: '',
     },
     orders: [],
   });
 
   const token = localStorage.getItem("token");
+
+  // 잔여 시간을 시간:분 형식으로 변환하는 함수
+    const formatTime = (minutes) => {
+      const hours = Math.floor(minutes / 60);
+      const mins = minutes % 60;
+      return `${hours}:${mins.toString().padStart(2, '0')}`;
+  };
 
   const userInfo = async (token) => {
     try {
@@ -40,6 +48,7 @@ function NewModal() {
     }
   };
 
+
   useEffect(() => {
     userInfo(token);
   }, [token]);
@@ -60,14 +69,16 @@ function NewModal() {
                 <div className="userMileage">
                   현재 마일리지 : {info.user.userMileage}P
                 </div>
-                <div className="userTime">잔여시간 : 00:00</div>
+                <div className="userTime">
+                  잔여시간 : {formatTime(info.user.gameDisabledDuration)}
+                </div>
                 <button onClick={Logout} className="logout">
                   로그아웃
                 </button>
               </div>
             </div>
             <div className="purchaseLine">
-              -------------- 구매한 기프티콘 ---------------
+              ----------------- 구매한 상품 -----------------
             </div>
 
             <div className="giftList">
