@@ -78,9 +78,9 @@ const Giftshop = () => {
             {giftList.map((product) => (
                 <Link to={`/giftshop/${product.productId}`} key={product.productId} style={{ textDecoration: "none", color: "black" }}>
                   <div className="product">
-                    <img src={product.productImg} alt={product.productName} style={{ width: '1000px', height: '667px' }} />
+                    <img src={product.productImg} alt={product.productName} />
                     <div className="name">{product.productName}</div>
-                    <div className="price">{product.productPrice}P</div>
+                    <div className="price">{product.productPrice}M</div>
                   </div>
                 </Link>
             ))}

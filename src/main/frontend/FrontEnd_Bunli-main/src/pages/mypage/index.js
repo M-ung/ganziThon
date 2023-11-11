@@ -6,11 +6,11 @@ import useWindowSize from "../components/useWindowSize.js";
 const MyPage = () => {
   const windowSize = useWindowSize();
   return (
-    <div className="myPageFirstClass">
-      {windowSize.width > 520 ? <NewSideBar /> : <></>}
+        <div className="myPageFirstClass">
+          {windowSize.width > 520 ? <NewSideBar /> : <></>}
 
-      <NewModal />
-    </div>
+          <NewModal />
+        </div>
   );
 };
 

@@ -6,35 +6,47 @@
   align-items: flex-start;
   margin-top: 90px;
   img {
-    width: 440px;
+    width: 500px;
+    height: 300px;
+    border-radius: 10px; // 이미지 둥글게 처리
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // 이미지에 그림자 추가
   }
   .contents {
     min-width: 280px;
     margin: 8px 0px 0px 20px;
     padding: 10px 40px;
+    background-color: #f8f8f8; // 배경 색상 추가
+    border-radius: 10px; // 컨텐츠 둥글게 처리
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // 컨텐츠에 그림자 추가
     .name {
       font-size: 26px;
+      color: #333; // 폰트 색상 변경
+      margin-bottom: 10px; // 여백 추가
     }
     .content {
       height: 90px;
       width: 260px;
-      margin: 26px 0px 0px 0px;
       font-size: 17px;
     }
     .price {
-      margin: 22px 0px 0px 0px;
       font-weight: bold;
       font-size: 32px;
+      color: #27ae60; // 가격 색상 변경
     }
     button {
       display: block;
-      width: 80px;
-      height: 34px;
+      width: 100%; // 버튼 너비 조정
+      height: 40px; // 버튼 높이 조정
       margin-top: 20px;
       cursor: pointer;
+      background-color: #27ae60; // 버튼 색상 변경
+      color: white; // 버튼 텍스트 색상 변경
+      border-radius: 5px; // 버튼 둥글게 처리
+      font-weight: bold; // 버튼 폰트 가중치 증가
     }
   }
 }
+
 
 @include mobile {
   .giftDetailTopClass {

@@ -1,16 +1,19 @@
-import NewModal from "./newModal";
 import React from "react";
 import NewSideBar from "../components/menuBar/newSideBar";
 import useWindowSize from "../components/useWindowSize.js";
+import Game from "./newGame";
 
 const MyPage = () => {
   const windowSize = useWindowSize();
   return (
-      <div className="myPageFirstClass">
-        {windowSize.width > 520 ? <NewSideBar /> : <></>}
+    <div className="myPageFirstClass">
+      <NewSideBar />
 
-        <NewModal />
+      {/* <NewModal /> */}
+      <div className="gameFoam">
+        <Game></Game>
       </div>
+    </div>
   );
 };
 

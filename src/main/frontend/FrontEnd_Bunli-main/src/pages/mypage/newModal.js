@@ -67,7 +67,7 @@ function NewModal() {
                 <div className="userName">{info.user.userName}</div>
                 <div className="userRegion">{info.user.userAddress}</div>
                 <div className="userMileage">
-                  현재 마일리지 : {info.user.userMileage}P
+                  현재 마일리지 : {info.user.userMileage}M
                 </div>
                 <div className="userTime">
                   잔여시간 : {formatTime(info.user.gameDisabledDuration)}
@@ -90,8 +90,8 @@ function NewModal() {
                         style={{ textDecoration: "none", color: "black" }}
                     >
                       <div className="product">
-                        <img src={order.image} alt="order" />
-                        <div className="name">{order.name}</div>
+                        <img src={order.productImg} alt="order" />
+                        <div className="name">{order.productName}</div>
                       </div>
                     </Link>
                 );

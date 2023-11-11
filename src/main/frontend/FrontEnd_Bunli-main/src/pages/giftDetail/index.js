@@ -55,11 +55,11 @@ const GiftDetail = () => {
         </div>
 
         <div className="giftDetailTopClass">
-          <img src={giftDetail.productImage} alt="image" />
+          <img src={giftDetail.productImg} alt="image" />
           <div className="contents">
             <div className="name">{giftDetail.productName}</div>
             <div className="content">{giftDetail.productDetail}</div>
-            <div className="price">{giftDetail.productPrice}P</div>
+            <div className="price">{giftDetail.productPrice}M</div>
             <button className="Button" onClick={orderGift}>
               구매
             </button>

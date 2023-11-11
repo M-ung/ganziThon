@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import recyclebinImg from "../../../assets/recylebinImg.png";
 import storeImg from "../../../assets/제어판.png";
 import userImg from "../../../assets/드라이브.png";
+import folderImg from "../../../assets/폴더.png";
 import { userGameApi } from "../../../apis/userApi";
 import {useEffect, useState} from "react";
 
@@ -53,6 +54,10 @@ const NewSideBar = () => {
     navigate("/giftshop");
   };
 
+    const handleOnFolder = () => {
+        alert("미르톤 화이팅!!!!!");
+    };
+
   return (
     <div id="iconBox">
       <img src={userImg} id="mypage" onClick={handleOnMypage}></img>
@@ -61,6 +66,10 @@ const NewSideBar = () => {
       <p id="font2">휴지통</p>
       <img src={storeImg} id="store" onClick={handleOnStore}></img>
       <p id="font3">상점</p>
+        <img src={folderImg} id="folder" onClick={handleOnFolder}></img>
+        <p id="font4">미르톤</p>
+        <img src={folderImg} id="folder" onClick={handleOnFolder}></img>
+        <p id="font5">화이팅!</p>
     </div>
   );
 };
