@@ -1,6 +1,5 @@
 package ganzithon.ganzithon.service.order;
 
-import ganzithon.ganzithon.dto.order.OrderDto;
 import ganzithon.ganzithon.entity.order.Order;
 import ganzithon.ganzithon.entity.product.Product;
 import ganzithon.ganzithon.entity.user.User;
@@ -26,7 +25,6 @@ public class OrderService {
         if (!userOptional.isPresent()) {
             return "error: user not found";
         }
-
         Optional<Product> productOptional = productRepository.findById(productId);
         if (!productOptional.isPresent()) {
             return "error: product not found";
@@ -34,9 +32,13 @@ public class OrderService {
         Integer userMileage = userOptional.get().getUserMileage();
         Integer productPrice = productOptional.get().getProductPrice();
 
+        System.out.println("userMileage: "+userMileage);
+        System.out.println("productPrice: "+productPrice);
+
         if (userMileage < productPrice) {
             return "error: no Mileage";
         }
+
 
         User user = userOptional.get();
         Product product = productOptional.get();
@@ -46,11 +48,8 @@ public class OrderService {
 
         // 주문을 저장합니다.
         orderRepository.save(newOrder);
-
         Integer currentMileage = userMileage - productPrice;
-
         user.setUserMileage(currentMileage);
-
         userRepository.save(user);
 
         return "success";

@@ -11,4 +11,5 @@ public class OrderDto {
     private Long userId;
     private Long productId;
     private Integer productPrice;
+    private String productImg;
 }

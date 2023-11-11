@@ -13,4 +13,5 @@ public class UserMyPageDto {
     private String userEmail;
     private String userAddress;
     private Integer userMileage;
+    private Integer gameDisabledDuration; // 게임 불가능 지속 시간 (분 단위)
 }

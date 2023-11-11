@@ -1,24 +1,54 @@
-import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from '@emotion/styled';
 import "./start.css";
 import icon from "../components/img/icon.png";
+import loadingGif from "../components/img/loading.gif"; // 가정한 GIF 경로
 
 function Start() {
-  const movePage = useNavigate();
-  const onButtonClick = () => {
-    movePage("/signup");
-  };
-  return (
-    <Container className="container">
-      <img className="logo" src={icon} alt="logo"></img>
-      <H1 id="font">분리할래?</H1>
+    const [showGif, setShowGif] = useState(false);
+    const movePage = useNavigate();
 
-      <Button className="button" onClick={onButtonClick}>
-        START
-      </Button>
-    </Container>
-  );
+    const onButtonClick = () => {
+        setShowGif(true);
+        setTimeout(() => {
+            movePage("/signup");
+        }, 5000); // 5초 후 페이지 이동
+    };
+
+    return (
+        <Container className="container">
+            <img className="logo" src={icon} alt="logo"></img>
+            <H1 id="font">분리할래?</H1>
+
+            {showGif && (
+                <FullScreenGif>
+                    <img src={loadingGif} alt="Loading..." />
+                </FullScreenGif>
+            )}
+
+            <Button className="button" onClick={onButtonClick}>
+                START
+            </Button>
+        </Container>
+    );
 }
+
+const FullScreenGif = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); // 반투명 배경
+  z-index: 1000; // 다른 요소보다 상위에 위치
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // 화면에 꽉 차게
+  }
+`;
 
 const Container = styled.div`
   height: 100vh; // 높이
@@ -86,7 +116,4 @@ const Button = styled.button`
 
 export default Start;
 
-//ff7473 빨
-//ffc952 노
-//47b8e0 파
-//34314c 회
+

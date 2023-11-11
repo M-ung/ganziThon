@@ -25,7 +25,7 @@ public class UserService {
     public String save(UserDto userDto) {
         Optional<User> byUserEmail = userRepository.findByUserEmail(userDto.getUserEmail());
         if (byUserEmail.isPresent()) {
-            return "error 1";
+            return "error";
         }
         User user = User.builder()
                 .userName(userDto.getUserName())
@@ -33,6 +33,7 @@ public class UserService {
                 .userPassword(passwordEncoder.encode(userDto.getUserPassword())) // 암호
                 .userAddress(userDto.getUserAddress())
                 .userMileage(0)
+                .gameDisabledDuration(0)
                 .build();
 
         userRepository.save(user);

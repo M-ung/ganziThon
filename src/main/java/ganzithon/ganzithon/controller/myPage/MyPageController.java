@@ -19,10 +19,10 @@ public class MyPageController {
     private final AuthenticationService authenticationService;
 
     // 마이페이지 정보 조회
-    @GetMapping("/{userId}")
-    public ResponseEntity<MyPageDto> getMyPage(@PathVariable Long userId) {
+    @GetMapping
+    public ResponseEntity<MyPageDto> getMyPage() {
         String currentUserEmail = authenticationService.getCurrentAuthenticatedUserEmail();
-        MyPageDto myPageDto = myPageService.getMyPageInfo(userId, currentUserEmail);
+        MyPageDto myPageDto = myPageService.getMyPageInfo(currentUserEmail);
 
         if (myPageDto != null) {
             return ResponseEntity.ok(myPageDto);

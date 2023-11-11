@@ -40,7 +40,7 @@ const GiftDetail = () => {
   return (
       <div>
         <MenuBar />
-        <div className="giftshopTop">
+        <dliv className="giftshopTop">
           <Link
               to="/giftshop"
               style={{
@@ -52,7 +52,7 @@ const GiftDetail = () => {
             <i class="fa-solid fa-gift"></i>
             기프티콘 샵
           </Link>
-        </div>
+        </dliv>
 
         <div className="giftDetailTopClass">
           <img src={giftDetail.productImg} alt="image" />

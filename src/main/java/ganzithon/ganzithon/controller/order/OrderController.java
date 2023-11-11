@@ -6,9 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/order")
+@RequestMapping("/shop")
 public class OrderController {
     private final OrderService orderService;
     private final AuthenticationService authenticationService;
@@ -18,7 +20,7 @@ public class OrderController {
         String currentUserEmail = authenticationService.getCurrentAuthenticatedUserEmail();
         String orderResult = orderService.order(productId, currentUserEmail);
 
-        if (orderResult == "success")
+        if (Objects.equals(orderResult, "success"))
         {
             return ResponseEntity.ok("상품이 주문 되었습니다.");
         }

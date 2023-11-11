@@ -12,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -23,11 +22,11 @@ public class MyPageService {
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
 
-    public MyPageDto getMyPageInfo(Long userId, String currentUserEmail) {
-        Optional<User> user = userRepository.findById(userId);
-        List<Order> orders = orderRepository.findByUserUserId(userId);
+    public MyPageDto getMyPageInfo(String currentUserEmail) {
+        Optional<User> user = userRepository.findByUserEmail(currentUserEmail);
+        List<Order> orders = orderRepository.findByUserUserId(user.get().getUserId());
 
-        if (user.isPresent() && Objects.equals(user.get().getUserEmail(), currentUserEmail)) {
+        if (user.isPresent()) {
             MyPageDto myPageDto = new MyPageDto();
             myPageDto.setUserMyPageDto(convertToUserDTO(user.get()));
             myPageDto.setOrders(orders.stream()

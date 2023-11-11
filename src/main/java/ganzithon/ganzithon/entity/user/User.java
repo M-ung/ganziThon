@@ -4,6 +4,8 @@ import lombok.*;
 import org.springframework.context.annotation.Profile;
 
 import javax.persistence.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -39,4 +41,5 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
+    private Integer gameDisabledDuration = 0; // 게임 불가능 지속 시간 (분 단위)
 }

@@ -3,7 +3,6 @@ package ganzithon.ganzithon.controller.product;
 
 import ganzithon.ganzithon.dto.product.ProductDetailDto;
 import ganzithon.ganzithon.dto.product.ProductDto;
-import ganzithon.ganzithon.entity.product.Product;
 import ganzithon.ganzithon.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

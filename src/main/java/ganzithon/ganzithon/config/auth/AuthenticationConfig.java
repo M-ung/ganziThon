@@ -30,7 +30,7 @@ public class AuthenticationConfig {
                 .csrf().disable() // CSRF(Cross-Site Request Forgery) 보호 기능 비활성화
                 .cors().and() // CORS(Cross-Origin Resource Sharing) 설정 활성화
                 .authorizeRequests() // HttpServletRequest를 사용한 접근 제한 설정
-                .antMatchers("/login", "/signup").permitAll() // /login, /signup 경로는 인증 없이 접근 허용
+                .antMatchers("/","/user/login", "/user/signup").permitAll() // /login, /signup 경로는 인증 없이 접근 허용
                 .antMatchers(HttpMethod.POST, "/**").authenticated() // 모든 POST 요청은 인증이 필요함
                 .antMatchers(HttpMethod.GET, "/**").authenticated() // 모든 GET 요청도 인증이 필요
                 .and()

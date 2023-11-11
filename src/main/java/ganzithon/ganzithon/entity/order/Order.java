@@ -3,8 +3,6 @@ package ganzithon.ganzithon.entity.order;
 import ganzithon.ganzithon.entity.product.Product;
 import ganzithon.ganzithon.entity.user.User;
 import lombok.*;
-import org.aspectj.weaver.ast.Or;
-
 import javax.persistence.*;
 
 @Entity
